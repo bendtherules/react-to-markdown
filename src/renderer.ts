@@ -1,15 +1,15 @@
-import { root, text } from "mdast-builder";
-import { Children as ReactChildren } from "react";
-import * as stringify from "remark-stringify";
-import * as unified from "unified";
+import { root, text } from 'mdast-builder';
+import { Children as ReactChildren } from 'react';
+import * as stringify from 'remark-stringify';
+import * as unified from 'unified';
 // tslint:disable-next-line: no-implicit-dependencies
-import { Parent as MDASTParent } from "unist";
+import { Parent as MDASTParent } from 'unist';
 
 import {
   isClassComponent,
   isFunctionalComponent,
-  ReactElementSubsetWithPrimitive
-} from "./helpers";
+  ReactElementSubsetWithPrimitive,
+} from './helpers';
 
 function render(
   node: ReactElementSubsetWithPrimitive,
@@ -24,7 +24,7 @@ function render(
 
   if (node === null || node === undefined) {
     // Handle (skip) null and undefined nodes
-  } else if (typeof node === "string" || typeof node === "number") {
+  } else if (typeof node === 'string' || typeof node === 'number') {
     // Handle (render) string and number nodes as string in markdown
 
     const currASTNode = text(node.toString());
@@ -82,10 +82,10 @@ function render(
     // For root call, return string
     if (parentASTNode === undefined && parentASTNodeMod.children.length > 0) {
       const processor = unified().use(stringify, {
-        bullet: "-",
-        fence: "`",
+        bullet: '-',
+        fence: '`',
         fences: true,
-        incrementListMarker: false
+        incrementListMarker: false,
       });
       const output = processor.stringify(parentASTNodeMod);
 

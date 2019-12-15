@@ -3,8 +3,8 @@ import {
   ElementType,
   FunctionComponent,
   PropsWithChildren,
-  ReactText
-} from "react";
+  ReactText,
+} from 'react';
 
 export interface IReactElementSubset<TProps = {}> {
   props: PropsWithChildren<TProps>;
@@ -22,7 +22,7 @@ export function isFunctionalComponent(
   eleType: ElementType
 ): eleType is FunctionComponent {
   return (
-    typeof eleType === "function" && // can be various things
+    typeof eleType === 'function' && // can be various things
     !(
       (eleType.prototype && eleType.prototype.isReactComponent) // native arrows don't have prototypes // special property
     )
@@ -33,7 +33,7 @@ export function isClassComponent(
   eleType: ElementType
 ): eleType is ComponentClass {
   return !!(
-    typeof eleType === "function" &&
+    typeof eleType === 'function' &&
     eleType.prototype &&
     eleType.prototype.isReactComponent
   );
