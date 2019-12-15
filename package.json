@@ -33,6 +33,7 @@
   "devDependencies": {
     "@types/jest": "^23.3.3",
     "@types/node": "^10.11.4",
+    "@types/react": "^16.9.16",
     "coveralls": "^3.0.2",
     "jest": "^23.6.0",
     "prettier": "^1.14.3",
