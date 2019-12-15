@@ -1,20 +1,20 @@
 import {
+  ComponentClass,
   ElementType,
   FunctionComponent,
-  ComponentClass,
   PropsWithChildren,
   ReactText
 } from "react";
 
-export type ReactElementSubset<TProps = {}> = {
+export interface IReactElementSubset<TProps = {}> {
   props: PropsWithChildren<TProps>;
   type: ElementType<TProps>;
-};
+}
 
 export type ReactElementSubsetWithPrimitive =
-  | ReactElementSubset
+  | IReactElementSubset
   | ReactText
-  | Array<ReactElementSubsetWithPrimitive>
+  | ReactElementSubsetWithPrimitive[]
   | null
   | undefined;
 

@@ -2,6 +2,7 @@ import { root, text } from "mdast-builder";
 import { Children as ReactChildren } from "react";
 import * as stringify from "remark-stringify";
 import * as unified from "unified";
+// tslint:disable-next-line: no-implicit-dependencies
 import { Parent as MDASTParent } from "unist";
 
 import {
@@ -56,12 +57,11 @@ function render(
 
         // Render processed array of children
         render(renderOutput, parentASTNodeMod);
-
       }
     }
 
-    // Handle intrinsic types of element like div, h1
     {
+      // Handle intrinsic types of element like div, h1
     }
 
     {
