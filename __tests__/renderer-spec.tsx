@@ -20,7 +20,7 @@ test('should render plain text with simple Function Component', () => {
     return 'abcd';
   }
 
-  // Note: Rendering string from JSX shows TS error (https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20544). This is a workaround.
+  // Note: Rendering string from function comp shows TS error (https://github.com/DefinitelyTyped/DefinitelyTyped/issues/20544). This is a workaround.
   expect(
     (render(
       React.createElement((TestComponent as unknown) as React.FunctionComponent)
