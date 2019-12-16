@@ -37,3 +37,7 @@ test('should render plain text with simple Class Component', () => {
 
   expect((render(<TestComponent />) as string).trim()).toBe('abcd');
 });
+
+test('should render plain H1 with text', () => {
+  expect((render(<h1>abcd</h1>) as string).trim()).toBe('# abcd');
+});
