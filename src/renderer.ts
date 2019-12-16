@@ -11,6 +11,8 @@ import {
   ReactElementSubsetWithPrimitive,
 } from './helpers';
 
+import handleTag from './tagHandler';
+
 function render(
   node: ReactElementSubsetWithPrimitive,
   parentASTNode?: MDASTParent
@@ -35,6 +37,7 @@ function render(
     node.forEach(fragmentEle => render(fragmentEle, parentASTNodeMod));
   } else {
     const { props, type: elementType } = node;
+    let processChildren = true;
 
     // Handle nested function or class components
     {
@@ -62,10 +65,17 @@ function render(
 
     {
       // Handle intrinsic types of element like div, h1
+      const newParentASTNode = handleTag(node, parentASTNodeMod);
+      if (newParentASTNode === undefined) {
+        processChildren = false;
+      } else {
+        processChildren = true;
+        parentASTNodeMod = newParentASTNode;
+      }
     }
 
-    {
-      // Handle children
+    // Handle children
+    if (processChildren) {
       const { children } = props;
 
       // Render processed array of children
