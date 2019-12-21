@@ -152,6 +152,7 @@ export default function handleTag(
 
     // START - Handle pre.code
     case 'pre': {
+      //  If structure looks like pre.code, call handleTag again on code tag with extraProps having inline:false
       const childrenArray = ReactChildren.toArray(node.props.children);
       if (childrenArray.length === 1) {
         let onlyChild = childrenArray[0] as ReactElementSubsetWithPrimitive;
