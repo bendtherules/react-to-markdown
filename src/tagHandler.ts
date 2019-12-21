@@ -31,12 +31,14 @@ export default function handleTag(
       break;
     // END - Handle all headings
 
+    // START - Handle strong and em
     case 'strong':
       newParentASTNode = childASTNode = strong();
       break;
     case 'em':
       newParentASTNode = childASTNode = emphasis();
       break;
+    // END - Handle strong and em
 
     default:
       newParentASTNode = parentASTNode;
