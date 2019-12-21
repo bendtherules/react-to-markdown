@@ -1,4 +1,4 @@
-import { emphasis, heading, strong } from 'mdast-builder';
+import { emphasis, heading, strong, list, listItem } from 'mdast-builder';
 // tslint:disable-next-line: no-implicit-dependencies
 import { Node as MDASTNode, Parent as MDASTParent } from 'unist';
 import { IReactElementSubset } from './helpers';
@@ -39,6 +39,19 @@ export default function handleTag(
       newParentASTNode = childASTNode = emphasis();
       break;
     // END - Handle strong and em
+
+    // START - Handle lists - ul, ol, li
+    case 'ul':
+      newParentASTNode = childASTNode = list('unordered', []);
+      break;
+    case 'ol':
+      newParentASTNode = childASTNode = list('ordered', []);
+      break;
+    case 'li':
+      newParentASTNode = childASTNode = listItem([]);
+      break;
+
+    // END - Handle lists - ul, ol, li
 
     default:
       newParentASTNode = parentASTNode;

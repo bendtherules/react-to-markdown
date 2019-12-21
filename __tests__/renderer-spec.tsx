@@ -75,3 +75,27 @@ test('should render H1 with mixed strong and em text', () => {
     ) as string).trim()
   ).toBe('# This is **Hello** _World_');
 });
+
+test('should render plain unordered list with text', () => {
+  expect(
+    (render(
+      <ul>
+        <li>a</li>
+        <li>b</li>
+        <li>c</li>
+      </ul>
+    ) as string).trim()
+  ).toBe('-   a\n-   b\n-   c');
+});
+
+test('should render plain ordered list with text', () => {
+  expect(
+    (render(
+      <ol>
+        <li>a</li>
+        <li>b</li>
+        <li>c</li>
+      </ol>
+    ) as string).trim()
+  ).toBe('1.  a\n2.  b\n3.  c');
+});
