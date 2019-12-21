@@ -38,6 +38,9 @@ export default function handleTag(
     case 'h5':
       newParentASTNode = childASTNode = heading(5);
       break;
+    case 'h6':
+      newParentASTNode = childASTNode = heading(6);
+      break;
     // END - Handle all headings
 
     // START - Handle strong and em

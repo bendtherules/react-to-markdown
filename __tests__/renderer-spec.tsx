@@ -58,6 +58,10 @@ test('should render plain h5 with text', () => {
   expect((render(<h5>abcd</h5>) as string).trim()).toBe('##### abcd');
 });
 
+test('should render plain h6 with text', () => {
+  expect((render(<h6>abcd</h6>) as string).trim()).toBe('###### abcd');
+});
+
 test('should render plain strong with text', () => {
   expect((render(<strong>abcd</strong>) as string).trim()).toBe('**abcd**');
 });
@@ -110,24 +114,18 @@ test('should render image with alt text and title', () => {
 
 test('should render image with only alt text', () => {
   expect(
-    (render(
-      <img src="./test.jpg" alt="some alt" />
-    ) as string).trim()
+    (render(<img src="./test.jpg" alt="some alt" />) as string).trim()
   ).toBe('![some alt](./test.jpg)');
 });
 
 test('should render image with only title', () => {
   expect(
-    (render(
-      <img src="./test.jpg" title="some title" />
-    ) as string).trim()
+    (render(<img src="./test.jpg" title="some title" />) as string).trim()
   ).toBe('![](./test.jpg "some title")');
 });
 
 test('should render image without attributes', () => {
-  expect(
-    (render(
-      <img src="./test.jpg" />
-    ) as string).trim()
-  ).toBe('![](./test.jpg)');
+  expect((render(<img src="./test.jpg" />) as string).trim()).toBe(
+    '![](./test.jpg)'
+  );
 });
