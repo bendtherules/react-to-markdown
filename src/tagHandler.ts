@@ -1,4 +1,4 @@
-import { heading, strong, emphasis } from 'mdast-builder';
+import { emphasis, heading, strong } from 'mdast-builder';
 // tslint:disable-next-line: no-implicit-dependencies
 import { Node as MDASTNode, Parent as MDASTParent } from 'unist';
 import { IReactElementSubset } from './helpers';
