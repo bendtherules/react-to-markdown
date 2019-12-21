@@ -67,5 +67,11 @@ test('should render plain em with text', () => {
 });
 
 test('should render H1 with mixed strong and em text', () => {
-  expect((render(<h1>This is <strong>Hello</strong> <em>World</em></h1>) as string).trim()).toBe('# This is **Hello** _World_');
+  expect(
+    (render(
+      <h1>
+        This is <strong>Hello</strong> <em>World</em>
+      </h1>
+    ) as string).trim()
+  ).toBe('# This is **Hello** _World_');
 });
