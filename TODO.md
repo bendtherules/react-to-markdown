@@ -1,5 +1,6 @@
 # Tag support -
 - Handle remaining tags
+- Handle reference-style links and images
 
 # Other Features -
 1. Expose (allow setting) remark-stringify config
