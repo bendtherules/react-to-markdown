@@ -6,6 +6,7 @@ import {
   link,
   list,
   listItem,
+  paragraph,
   strong,
 } from 'mdast-builder';
 import { AnchorHTMLAttributes, ImgHTMLAttributes } from 'react';
@@ -24,6 +25,13 @@ export default function handleTag(
   let newParentASTNode: MDASTParent | undefined;
 
   switch (tagType) {
+    // START - Handle paragraph
+    case 'p': {
+      newParentASTNode = childASTNode = paragraph();
+      break;
+    }
+    // END - Handle paragraph
+
     // START - Handle all headings
     case 'h1':
       newParentASTNode = childASTNode = heading(1);
