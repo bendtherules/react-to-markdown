@@ -1,6 +1,15 @@
-import { emphasis, heading, strong, list, listItem } from 'mdast-builder';
+import {
+  emphasis,
+  heading,
+  image,
+  list,
+  listItem,
+  strong,
+} from 'mdast-builder';
+import { ImgHTMLAttributes } from 'react';
 // tslint:disable-next-line: no-implicit-dependencies
 import { Node as MDASTNode, Parent as MDASTParent } from 'unist';
+
 import { IReactElementSubset } from './helpers';
 
 export default function handleTag(
@@ -50,8 +59,19 @@ export default function handleTag(
     case 'li':
       newParentASTNode = childASTNode = listItem([]);
       break;
-
     // END - Handle lists - ul, ol, li
+
+    // START - Handle img tag - with src and alt
+    case 'img': {
+      const props = node.props as ImgHTMLAttributes<any>;
+      let source = '';
+      if (props.src !== undefined) {
+        source = props.src;
+      }
+      newParentASTNode = childASTNode = image(source, props.title, props.alt);
+      break;
+    }
+    // END - Handle img tag - with src and alt
 
     default:
       newParentASTNode = parentASTNode;

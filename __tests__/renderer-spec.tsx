@@ -99,3 +99,35 @@ test('should render plain ordered list with text', () => {
     ) as string).trim()
   ).toBe('1.  a\n2.  b\n3.  c');
 });
+
+test('should render image with alt text and title', () => {
+  expect(
+    (render(
+      <img src="./test.jpg" title="some title" alt="some alt" />
+    ) as string).trim()
+  ).toBe('![some alt](./test.jpg "some title")');
+});
+
+test('should render image with only alt text', () => {
+  expect(
+    (render(
+      <img src="./test.jpg" alt="some alt" />
+    ) as string).trim()
+  ).toBe('![some alt](./test.jpg)');
+});
+
+test('should render image with only title', () => {
+  expect(
+    (render(
+      <img src="./test.jpg" title="some title" />
+    ) as string).trim()
+  ).toBe('![](./test.jpg "some title")');
+});
+
+test('should render image without attributes', () => {
+  expect(
+    (render(
+      <img src="./test.jpg" />
+    ) as string).trim()
+  ).toBe('![](./test.jpg)');
+});
