@@ -1,4 +1,4 @@
-import { heading } from 'mdast-builder';
+import { heading, strong, emphasis } from 'mdast-builder';
 // tslint:disable-next-line: no-implicit-dependencies
 import { Node as MDASTNode, Parent as MDASTParent } from 'unist';
 import { IReactElementSubset } from './helpers';
@@ -13,9 +13,23 @@ export default function handleTag(
   let newParentASTNode: MDASTParent | undefined;
 
   switch (tagType) {
+    // START - Handle all headings
     case 'h1':
       newParentASTNode = childASTNode = heading(1);
       break;
+    case 'h2':
+      newParentASTNode = childASTNode = heading(2);
+      break;
+    case 'h3':
+      newParentASTNode = childASTNode = heading(3);
+      break;
+    case 'h4':
+      newParentASTNode = childASTNode = heading(4);
+      break;
+    case 'h5':
+      newParentASTNode = childASTNode = heading(5);
+      break;
+    // END - Handle all headings
 
     case 'strong':
       newParentASTNode = childASTNode = strong();
