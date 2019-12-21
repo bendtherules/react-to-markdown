@@ -41,3 +41,15 @@ test('should render plain text with simple Class Component', () => {
 test('should render plain H1 with text', () => {
   expect((render(<h1>abcd</h1>) as string).trim()).toBe('# abcd');
 });
+
+test('should render plain strong with text', () => {
+  expect((render(<strong>abcd</strong>) as string).trim()).toBe('**abcd**');
+});
+
+test('should render plain em with text', () => {
+  expect((render(<em>abcd</em>) as string).trim()).toBe('_abcd_');
+});
+
+test('should render H1 with mixed strong and em text', () => {
+  expect((render(<h1>This is <strong>Hello</strong> <em>World</em></h1>) as string).trim()).toBe('# This is **Hello** _World_');
+});

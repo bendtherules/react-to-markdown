@@ -17,6 +17,13 @@ export default function handleTag(
       newParentASTNode = childASTNode = heading(1);
       break;
 
+    case 'strong':
+      newParentASTNode = childASTNode = strong();
+      break;
+    case 'em':
+      newParentASTNode = childASTNode = emphasis();
+      break;
+
     default:
       newParentASTNode = parentASTNode;
       break;
