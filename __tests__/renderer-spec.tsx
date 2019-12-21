@@ -166,3 +166,12 @@ test('should render blockquote with plain text', () => {
   );
 });
 
+test('should render blockquote with mixed text', () => {
+  expect(
+    (render(
+      <blockquote>
+        <p>This is <em>hello</em> <strong>world</strong></p>
+      </blockquote>
+    ) as string).trim()
+  ).toBe('> This is _hello_ **world**');
+});
