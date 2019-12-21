@@ -95,7 +95,7 @@ function render(
         bullet: '-',
         fence: '`',
         fences: true,
-        incrementListMarker: false,
+        incrementListMarker: true,
       });
       const output = processor.stringify(parentASTNodeMod);
 
