@@ -1,4 +1,5 @@
 import {
+  blockquote,
   emphasis,
   heading,
   image,
@@ -88,6 +89,13 @@ export default function handleTag(
       break;
     }
     // END - Handle anchor tag (link)
+
+    // START - Handle blockquote
+    case 'blockquote': {
+      newParentASTNode = childASTNode = blockquote();
+      break;
+    }
+    // END - Handle blockquote
 
     default:
       newParentASTNode = parentASTNode;

@@ -155,3 +155,10 @@ test('should render link with only title', () => {
 test('should render link without title and text', () => {
   expect((render(<a href="./test" />) as string).trim()).toBe('[](./test)');
 });
+
+test('should render blockquote with plain text', () => {
+  expect((render(<blockquote>some text</blockquote>) as string).trim()).toBe(
+    '> some text'
+  );
+});
+
