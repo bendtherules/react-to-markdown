@@ -176,18 +176,34 @@ test('should render blockquote with mixed text', () => {
   ).toBe('> This is _hello_ **world**');
 });
 
-test('should render code tag with text', () => {
+test('should render inline code tag with text', () => {
   expect(
     (render(
-      <code lang="js">const a = 1;</code>
+      <p>Code is <code>const a = 1;</code></p>
+    ) as string).trim()
+  ).toBe('Code is `const a = 1;`');
+});
+
+test('should render inline code tag without text', () => {
+  expect(
+    (render(
+      <p>Code is <code></code></p>
+    ) as string).trim()
+  ).toBe('Code is ``');
+});
+
+test('should render pre.code tag with text', () => {
+  expect(
+    (render(
+      <pre><code lang="js">const a = 1;</code></pre>
     ) as string).trim()
   ).toBe('```js\nconst a = 1;\n```');
 });
 
-test('should render code tag without text', () => {
+test('should render pre.code tag without text', () => {
   expect(
     (render(
-      <code lang="js"/>
+      <pre><code lang="js"/></pre>
     ) as string).trim()
   ).toBe('```js\n\n```');
 });

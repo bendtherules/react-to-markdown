@@ -4,6 +4,7 @@ import {
   emphasis,
   heading,
   image,
+  inlineCode,
   link,
   list,
   listItem,
@@ -11,18 +12,23 @@ import {
   strong,
 } from 'mdast-builder';
 import {
-  HTMLAttributes,
   AnchorHTMLAttributes,
+  Children as ReactChildren,
+  HTMLAttributes,
   ImgHTMLAttributes,
 } from 'react';
 // tslint:disable-next-line: no-implicit-dependencies
 import { Node as MDASTNode, Parent as MDASTParent } from 'unist';
 
-import { IReactElementSubset } from './helpers';
+import {
+  IReactElementSubset,
+  ReactElementSubsetWithPrimitive,
+} from './helpers';
 
 export default function handleTag(
   node: IReactElementSubset,
-  parentASTNode: MDASTParent
+  parentASTNode: MDASTParent,
+  extraProps = {}
 ) {
   const { type: tagType } = node;
 
@@ -112,7 +118,10 @@ export default function handleTag(
 
     // START - Handle code
     case 'code': {
-      const props = node.props as HTMLAttributes<any>;
+      // tslint:disable-next-line: no-object-literal-type-assertion
+      const props = { ...node.props, ...extraProps } as HTMLAttributes<any> & {
+        inline?: boolean;
+      };
 
       let lang = '';
       if (props.lang !== undefined) {
@@ -127,10 +136,37 @@ export default function handleTag(
         }
       }
 
-      childASTNode = code(lang, value);
+      let isInline = true;
+      if (props.inline !== undefined) {
+        isInline = !!props.inline;
+      }
+
+      if (isInline) {
+        childASTNode = inlineCode(value);
+      } else {
+        childASTNode = code(lang, value);
+      }
       break;
     }
     // END - Handle code
+
+    // START - Handle pre.code
+    case 'pre': {
+      const childrenArray = ReactChildren.toArray(node.props.children);
+      if (childrenArray.length === 1) {
+        let onlyChild = childrenArray[0] as ReactElementSubsetWithPrimitive;
+        if (
+          onlyChild instanceof Object &&
+          (onlyChild as IReactElementSubset).type === 'code'
+        ) {
+          onlyChild = onlyChild as IReactElementSubset;
+
+          handleTag(onlyChild, parentASTNode, { inline: false });
+        }
+      }
+      break;
+    }
+    // END - Handle blockquote
 
     default:
       newParentASTNode = parentASTNode;
