@@ -175,3 +175,19 @@ test('should render blockquote with mixed text', () => {
     ) as string).trim()
   ).toBe('> This is _hello_ **world**');
 });
+
+test('should render code tag with text', () => {
+  expect(
+    (render(
+      <code lang="js">const a = 1;</code>
+    ) as string).trim()
+  ).toBe('```js\nconst a = 1;\n```');
+});
+
+test('should render code tag without text', () => {
+  expect(
+    (render(
+      <code lang="js"/>
+    ) as string).trim()
+  ).toBe('```js\n\n```');
+});

@@ -1,5 +1,6 @@
 import {
   blockquote,
+  code,
   emphasis,
   heading,
   image,
@@ -9,7 +10,11 @@ import {
   paragraph,
   strong,
 } from 'mdast-builder';
-import { AnchorHTMLAttributes, ImgHTMLAttributes } from 'react';
+import {
+  HTMLAttributes,
+  AnchorHTMLAttributes,
+  ImgHTMLAttributes,
+} from 'react';
 // tslint:disable-next-line: no-implicit-dependencies
 import { Node as MDASTNode, Parent as MDASTParent } from 'unist';
 
@@ -104,6 +109,28 @@ export default function handleTag(
       break;
     }
     // END - Handle blockquote
+
+    // START - Handle code
+    case 'code': {
+      const props = node.props as HTMLAttributes<any>;
+
+      let lang = '';
+      if (props.lang !== undefined) {
+        lang = props.lang;
+      }
+
+      let value = '';
+      if (props.children !== undefined) {
+        const onlyChild = props.children;
+        if (typeof onlyChild === 'string' || typeof onlyChild === 'number') {
+          value = onlyChild.toString();
+        }
+      }
+
+      childASTNode = code(lang, value);
+      break;
+    }
+    // END - Handle code
 
     default:
       newParentASTNode = parentASTNode;
