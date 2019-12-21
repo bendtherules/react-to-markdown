@@ -23,6 +23,7 @@ function render(
   } else {
     parentASTNodeMod = parentASTNode;
   }
+  let nextParentASTNode = parentASTNodeMod;
 
   if (node === null || node === undefined) {
     // Handle (skip) null and undefined nodes
@@ -70,7 +71,7 @@ function render(
         processChildren = false;
       } else {
         processChildren = true;
-        parentASTNodeMod = newParentASTNode;
+        nextParentASTNode = newParentASTNode;
       }
     }
 
@@ -83,7 +84,7 @@ function render(
         children
       ) as ReactElementSubsetWithPrimitive[];
 
-      render(renderOutput, parentASTNodeMod);
+      render(renderOutput, nextParentASTNode);
     }
   }
 
