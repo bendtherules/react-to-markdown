@@ -2,11 +2,12 @@ import {
   emphasis,
   heading,
   image,
+  link,
   list,
   listItem,
   strong,
 } from 'mdast-builder';
-import { ImgHTMLAttributes } from 'react';
+import { AnchorHTMLAttributes, ImgHTMLAttributes } from 'react';
 // tslint:disable-next-line: no-implicit-dependencies
 import { Node as MDASTNode, Parent as MDASTParent } from 'unist';
 
@@ -75,6 +76,18 @@ export default function handleTag(
       break;
     }
     // END - Handle img tag - with src and alt
+
+    // START - Handle anchor tag (link)
+    case 'a': {
+      const props = node.props as AnchorHTMLAttributes<any>;
+      let href = '';
+      if (props.href !== undefined) {
+        href = props.href;
+      }
+      newParentASTNode = childASTNode = link(href, props.title);
+      break;
+    }
+    // END - Handle anchor tag (link)
 
     default:
       newParentASTNode = parentASTNode;

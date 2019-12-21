@@ -129,3 +129,29 @@ test('should render image without attributes', () => {
     '![](./test.jpg)'
   );
 });
+
+test('should render link with text and title', () => {
+  expect(
+    (render(
+      <a href="./test" title="some title">
+        some text
+      </a>
+    ) as string).trim()
+  ).toBe('[some text](./test "some title")');
+});
+
+test('should render link with only text', () => {
+  expect((render(<a href="./test">some text</a>) as string).trim()).toBe(
+    '[some text](./test)'
+  );
+});
+
+test('should render link with only title', () => {
+  expect(
+    (render(<a href="./test" title="some title" />) as string).trim()
+  ).toBe('[](./test "some title")');
+});
+
+test('should render link without title and text', () => {
+  expect((render(<a href="./test" />) as string).trim()).toBe('[](./test)');
+});
