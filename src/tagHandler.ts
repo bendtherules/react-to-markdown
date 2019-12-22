@@ -1,5 +1,6 @@
 import {
   blockquote,
+  brk,
   code,
   emphasis,
   heading,
@@ -9,6 +10,8 @@ import {
   list,
   listItem,
   paragraph,
+  separator,
+  strike,
   strong,
 } from 'mdast-builder';
 import {
@@ -34,6 +37,7 @@ export default function handleTag(
 
   let childASTNode: MDASTNode | undefined;
   let newParentASTNode: MDASTParent | undefined;
+  let isHandled = true;
 
   switch (tagType) {
     // START - Handle paragraph
@@ -72,6 +76,14 @@ export default function handleTag(
       newParentASTNode = childASTNode = emphasis();
       break;
     // END - Handle strong and em
+
+    // START - Handle strike (tags - strike, del, s)
+    case 'strike':
+    case 'del':
+    case 's':
+      newParentASTNode = childASTNode = strike();
+      break;
+    // END - Handle strike (tags - strike, del, s)
 
     // START - Handle lists - ul, ol, li
     case 'ul':
@@ -115,6 +127,20 @@ export default function handleTag(
       break;
     }
     // END - Handle blockquote
+
+    // START - Handle horizontal separator (hr)
+    case 'hr': {
+      childASTNode = separator;
+      break;
+    }
+    // END - Handle horizontal separator (hr)
+
+    // START - Handle line break (br)
+    case 'br': {
+      childASTNode = brk;
+      break;
+    }
+    // END - Handle line break (br)
 
     // START - Handle code
     case 'code': {

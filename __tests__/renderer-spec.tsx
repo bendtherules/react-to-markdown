@@ -207,3 +207,37 @@ test('should render pre.code tag without text', () => {
     ) as string).trim()
   ).toBe('```js\n\n```');
 });
+
+test('should render hr (line separator)', () => {
+  expect(
+    (render(
+      <>
+        <p>para 1</p>
+        <hr />
+        <p>para 2</p>
+      </>
+    ) as string).trim()
+  ).toBe('para 1\n\n---\n\npara 2');
+});
+
+test('should render break (br)', () => {
+  expect(
+    (render(
+      <p>
+        text 1
+        <br />
+        text 2
+      </p>
+    ) as string).trim()
+  ).toBe('text 1 \ntext 2');
+});
+
+test('should render strike (strike, s, del)', () => {
+  expect(
+    (render(
+      <p>
+        This <s>is</s> some <del>text</del>
+      </p>
+    ) as string).trim()
+  ).toBe('This ~~is~~ some ~~text~~');
+});
