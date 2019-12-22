@@ -1,5 +1,6 @@
 # Tag support -
 - Handle remaining tags
+- Cleanup code and pre.code handling
 - Handle reference-style links and images
 
 # Other Features -
