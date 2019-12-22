@@ -1,5 +1,5 @@
 import { root, text } from 'mdast-builder';
-import { Children as ReactChildren } from 'react';
+import { Children as ReactChildren, Fragment } from 'react';
 import * as stringify from 'remark-stringify';
 import * as unified from 'unified';
 // tslint:disable-next-line: no-implicit-dependencies
@@ -36,6 +36,13 @@ function render(
     // Handle (render) Fragment nodes or arrays
 
     node.forEach(fragmentEle => render(fragmentEle, parentASTNodeMod));
+  } else if (node.type === Fragment) {
+    const childrenArray = ReactChildren.toArray(
+      node.props.children
+    ) as ReactElementSubsetWithPrimitive[];
+
+    // Render processed array of children
+    render(childrenArray, parentASTNodeMod);
   } else {
     const { props, type: elementType } = node;
     let processChildren = true;
