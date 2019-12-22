@@ -4,6 +4,7 @@ import {
   code,
   emphasis,
   heading,
+  html,
   image,
   inlineCode,
   link,
@@ -14,6 +15,7 @@ import {
   strike,
   strong,
 } from 'mdast-builder';
+import {render as renderToHTML} from 'preact-render-to-string';
 import {
   AnchorHTMLAttributes,
   Children as ReactChildren,
@@ -23,6 +25,7 @@ import {
 // tslint:disable-next-line: no-implicit-dependencies
 import { Node as MDASTNode, Parent as MDASTParent } from 'unist';
 
+import { VNode } from 'preact';
 import {
   IReactElementSubset,
   ReactElementSubsetWithPrimitive,
@@ -178,6 +181,7 @@ export default function handleTag(
 
     // START - Handle pre.code
     case 'pre': {
+      isHandled = false;
       //  If structure looks like pre.code, call handleTag again on code tag with extraProps having inline:false
       const childrenArray = ReactChildren.toArray(node.props.children);
       if (childrenArray.length === 1) {
@@ -189,6 +193,8 @@ export default function handleTag(
           onlyChild = onlyChild as IReactElementSubset;
 
           handleTag(onlyChild, parentASTNode, { inline: false });
+
+          isHandled = true;
         }
       }
       break;
@@ -196,8 +202,17 @@ export default function handleTag(
     // END - Handle blockquote
 
     default:
-      newParentASTNode = parentASTNode;
+      isHandled = false;
       break;
+  }
+
+
+  if (!isHandled) {
+    // Handle as html
+    let htmlText = '';
+    htmlText = renderToHTML(node as VNode);
+
+    childASTNode = html(htmlText);
   }
 
   if (childASTNode !== undefined) {

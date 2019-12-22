@@ -251,3 +251,9 @@ test('should render strike (strike, s, del)', () => {
     ) as string).trim()
   ).toBe('This ~~is~~ some ~~text~~');
 });
+
+test('should render fallback as html tag', () => {
+  expect((render(<span>some text</span>) as string).trim()).toBe(
+    '<span>some text</span>'
+  );
+});

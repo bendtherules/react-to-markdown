@@ -48,30 +48,24 @@ function render(
     let processChildren = true;
 
     // Handle nested function or class components
-    {
-      if (isFunctionalComponent(elementType)) {
-        const renderOutputRaw = elementType.call(null, props);
-        const renderOutput = ReactChildren.toArray(
-          renderOutputRaw
-        ) as ReactElementSubsetWithPrimitive[];
+    if (isFunctionalComponent(elementType)) {
+      const renderOutputRaw = elementType.call(null, props);
+      const renderOutput = ReactChildren.toArray(
+        renderOutputRaw
+      ) as ReactElementSubsetWithPrimitive[];
 
-        // Render processed array of children
-        render(renderOutput, parentASTNodeMod);
-      }
+      // Render processed array of children
+      render(renderOutput, parentASTNodeMod);
+    } else if (isClassComponent(elementType)) {
+      const elementInstance = new elementType(props);
+      const renderOutputRaw = elementInstance.render();
+      const renderOutput = ReactChildren.toArray(
+        renderOutputRaw
+      ) as ReactElementSubsetWithPrimitive[];
 
-      if (isClassComponent(elementType)) {
-        const elementInstance = new elementType(props);
-        const renderOutputRaw = elementInstance.render();
-        const renderOutput = ReactChildren.toArray(
-          renderOutputRaw
-        ) as ReactElementSubsetWithPrimitive[];
-
-        // Render processed array of children
-        render(renderOutput, parentASTNodeMod);
-      }
-    }
-
-    {
+      // Render processed array of children
+      render(renderOutput, parentASTNodeMod);
+    } else {
       // Handle intrinsic types of element like div, h1
       const newParentASTNode = handleTag(node, parentASTNodeMod);
       if (newParentASTNode === undefined) {
