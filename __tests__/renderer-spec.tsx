@@ -234,12 +234,10 @@ test('should render break (br)', () => {
   expect(
     (render(
       <p>
-        text 1
-        <br />
-        text 2
+        text 1<br/>text 2
       </p>
     ) as string).trim()
-  ).toBe('text 1 \ntext 2');
+  ).toBe('text 1  \ntext 2');
 });
 
 test('should render strike (strike, s, del)', () => {
