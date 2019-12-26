@@ -234,7 +234,8 @@ test('should render break (br)', () => {
   expect(
     (render(
       <p>
-        text 1<br/>text 2
+        text 1<br />
+        text 2
       </p>
     ) as string).trim()
   ).toBe('text 1  \ntext 2');
@@ -250,8 +251,59 @@ test('should render strike (strike, s, del)', () => {
   ).toBe('This ~~is~~ some ~~text~~');
 });
 
+test('should render tables', () => {
+  expect(
+    (render(
+      <table>
+        <thead>
+          <tr>
+            <th>Header 1</th>
+            <th>Header 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Row 1 Col 1</td>
+            <td>Row 1 Col 2</td>
+          </tr>
+          <tr>
+            <td>Row 2 Col 1</td>
+            <td>Row 2 Col 2</td>
+          </tr>
+        </tbody>
+      </table>
+    ) as string).trim()
+  ).toBe(`\
+| Header 1    | Header 2    |
+| ----------- | ----------- |
+| Row 1 Col 1 | Row 1 Col 2 |
+| Row 2 Col 1 | Row 2 Col 2 |\
+`);
+});
+
 test('should render fallback as html tag', () => {
   expect((render(<span>some text</span>) as string).trim()).toBe(
     '<span>some text</span>'
   );
 });
+
+/*
+<table>
+  <thead>
+    <tr>
+      <th>Header 1</th>
+      <th>Header 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Row 1 Col 1</td>
+      <td>Row 1 Col 2</td>
+    </tr>
+    <tr>
+      <td>Row 2 Col 1</td>
+      <td>Row 2 Col 2</td>
+    </tr>
+  </tbody>
+</table>
+*/

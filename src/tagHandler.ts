@@ -14,8 +14,11 @@ import {
   separator,
   strike,
   strong,
+  table,
+  tableCell,
+  tableRow,
 } from 'mdast-builder';
-import {render as renderToHTML} from 'preact-render-to-string';
+import { render as renderToHTML } from 'preact-render-to-string';
 import {
   AnchorHTMLAttributes,
   Children as ReactChildren,
@@ -199,13 +202,40 @@ export default function handleTag(
       }
       break;
     }
-    // END - Handle blockquote
+    // END - Handle pre.code
+
+    // START - Handle table - all tags
+    case 'table': {
+      // TODO: Handle align
+      newParentASTNode = childASTNode = table();
+      break;
+    }
+
+    // Passthrough thead and tbody
+    case 'thead':
+    case 'tbody': {
+      newParentASTNode = parentASTNode;
+      break;
+    }
+
+    // Handle table rows
+    case 'tr': {
+      newParentASTNode = childASTNode = tableRow();
+      break;
+    }
+
+    // Handle table values (th - for header, td - for body)
+    case 'th':
+    case 'td': {
+      newParentASTNode = childASTNode = tableCell();
+      break;
+    }
+    // END - Handle table - all tags
 
     default:
       isHandled = false;
       break;
   }
-
 
   if (!isHandled) {
     // Handle as html
