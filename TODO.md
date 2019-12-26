@@ -1,5 +1,6 @@
 # Tag support -
 - Handle remaining tags
+- Handle align in table
 - Cleanup code and pre.code handling
 - Handle reference-style links and images
 
@@ -12,4 +13,8 @@
 
 # Meta -
 1. Add docs with travis, codecov badges
+   - What happens to undhandled tags? unhandled attributes?
+   - Extra attributes added? Align?
+   - Which tags are passthrough and can be exchanged?
+   - Creating table without header guide
 2. License
