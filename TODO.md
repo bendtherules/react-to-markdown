@@ -1,6 +1,7 @@
 # Tag support -
 - Handle remaining tags
 - Handle align in table
+- Start number in ordered lists?
 - Cleanup code and pre.code handling
 - Handle reference-style links and images
 
